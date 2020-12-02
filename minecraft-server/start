@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+>/data/eula.txt \
+  printf 'eula=%s\n' true
+
+>/data/fabric-server-launcher.properties \
+  printf 'serverJar=%s\n' /minecraft/server/server.jar
+
+printf 'Linking %s -> %s\n' 'mods' '/minecraft/mods'
+ln -Tfs /minecraft/mods mods
+
+exec java \
+  -Xmx1000M -Xms1000M \
+  -Dlog4j.configurationFile=/minecraft/log4j2.xml \
+  -jar /minecraft/server/fabric-server-launch.jar \
+  nogui
