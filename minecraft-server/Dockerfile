@@ -25,6 +25,8 @@ RUN wget -nc -O 'InventorySorter-1.7.4-1.16.jar' 'https://edge-service.overwolf.
 RUN wget -nc -O 'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/290/Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar'
 RUN wget -nc -O 'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/304/XaerosWorldMap_1.11.3_Fabric_1.16.4.jar'
 
+FROM itzg/rcon-cli AS rcon-cli
+
 FROM openjdk:16-alpine
 
 VOLUME /data
@@ -40,6 +42,8 @@ WORKDIR /data
 
 COPY --from=minecraft-files /minecraft/server/*.jar /minecraft/server/
 COPY --from=minecraft-files /minecraft/mods/*.jar /minecraft/mods/
+
+COPY --from=rcon-cli /rcon-cli /
 
 COPY log4j2.xml /minecraft/
 COPY start health-check /
