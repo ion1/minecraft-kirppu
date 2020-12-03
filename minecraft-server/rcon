@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+export RCON_PORT="$(sed -nre 's/^rcon\.port=//p' /data/server.properties)"
+export RCON_PASSWORD="$(sed -nre 's/^rcon\.password=//p' /data/server.properties)"
+
+exec /rcon-cli "$@"

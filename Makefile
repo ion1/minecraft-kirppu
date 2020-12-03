@@ -41,3 +41,7 @@ docker-stop:
 .PHONY: docker-rm
 docker-rm:
 	docker rm minecraft-kirppu
+
+.PHONY: rcon
+rcon:
+	docker exec -it minecraft-kirppu /rcon

@@ -44,6 +44,7 @@ COPY --from=minecraft-files /minecraft/server/*.jar /minecraft/server/
 COPY --from=minecraft-files /minecraft/mods/*.jar /minecraft/mods/
 
 COPY --from=rcon-cli /rcon-cli /
+COPY rcon /
 
 COPY log4j2.xml /minecraft/
 COPY start health-check /
