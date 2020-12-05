@@ -19,6 +19,7 @@
     "@oclif/command": "^1.8.0",
     "@types/node-fetch": "^2.5.7",
     "@types/shell-escape": "^0.2.0",
+    "get-stdin": "^8.0.0",
     "liquidjs": "^9.16.1",
     "node-fetch": "^2.6.1",
     "shell-escape": "^0.2.0"

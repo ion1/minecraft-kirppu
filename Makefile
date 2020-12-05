@@ -8,7 +8,10 @@ minecraft-server/Dockerfile: minecraft-server/Dockerfile.liquid
 
 .PHONY: generate-dockerfile
 generate-dockerfile: minecraft-server/Dockerfile.liquid
-	cd generate-dockerfile && npm run build && bin/generate-dockerfile ../minecraft-server
+	docker build --tag minecraft-kirppu-generate-dockerfile:local generate-dockerfile
+	docker run -i --rm minecraft-kirppu-generate-dockerfile:local \
+	  <minecraft-server/Dockerfile.liquid \
+	  >minecraft-server/Dockerfile
 
 .PHONY: docker-build
 docker-build: minecraft-server/Dockerfile

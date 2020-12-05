@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command'
+import getStdin = require('get-stdin')
 
-import { writeDockerfile } from './kirppu-dockerfile'
+import { renderDockerfile } from './kirppu-dockerfile'
 class GenerateDockerfile extends Command {
   static description = 'Generate the minecraft-kirppu Dockerfile'
 
@@ -8,12 +9,10 @@ class GenerateDockerfile extends Command {
     help: flags.help({ char: 'h' }),
   }
 
-  static args = [{ name: 'directory', required: true }]
-
   async run() {
-    const { args } = this.parse(GenerateDockerfile)
+    const { } = this.parse(GenerateDockerfile)
 
-    writeDockerfile(args.directory)
+    process.stdout.write(await renderDockerfile(await getStdin()))
   }
 }
 
