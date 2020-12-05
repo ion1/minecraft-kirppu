@@ -24,6 +24,7 @@ export interface KirppuValues {
 }
 
 export interface Download {
+  id: string
   url: string
   filename: string
 }
@@ -40,7 +41,11 @@ export default async function getKirppuValues(): Promise<KirppuValues> {
     metadata.getFabricLoaderVersion(),
     Promise.all(Object.values(MODS).map(async (modId) => {
       const url = await metadata.getModFileURL(modId)
-      return { url, filename: urlFilename(url) }
+      return {
+        id: `${modId}`,
+        url,
+        filename: urlFilename(url),
+      }
     })),
   ])
 

@@ -1,15 +1,18 @@
 # Dockerfile is generated from Dockerfile.liquid
 
-FROM openjdk:16-alpine AS minecraft-files
-
+FROM openjdk:16-alpine AS minecraft-base
 RUN \
-  set -eu; \
-  apk update; \
-  apk add --no-cache wget; \
-  addgroup -g 1000 minecraft; \
-  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft; \
-  mkdir -p /minecraft/server /minecraft/mods; \
+  addgroup -g 1000 minecraft && \
+  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft && \
+  mkdir -p /minecraft/server /minecraft/mods && \
   chown -R minecraft:minecraft /minecraft
+
+FROM minecraft-base AS minecraft-download
+RUN \
+  apk update && \
+  apk add --no-cache wget
+
+FROM minecraft-download AS minecraft-server
 USER minecraft
 WORKDIR /minecraft/server
 RUN wget -nc -O ../fabric-installer.jar 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.6.1.51/fabric-installer-0.6.1.51.jar'
@@ -19,37 +22,42 @@ RUN \
   -loaderversion '0.10.8' \
   -downloadMinecraft
 
+FROM minecraft-download AS minecraft-mod-306612
+USER minecraft
 WORKDIR /minecraft/mods
 RUN wget -nc -O 'fabric-api-0.25.0+build.415-1.16.jar' 'https://edge-service.overwolf.wtf/files/3097/415/fabric-api-0.25.0+build.415-1.16.jar'
+FROM minecraft-download AS minecraft-mod-325471
+USER minecraft
+WORKDIR /minecraft/mods
 RUN wget -nc -O 'InventorySorter-1.7.4-1.16.jar' 'https://edge-service.overwolf.wtf/files/3071/870/InventorySorter-1.7.4-1.16.jar'
+FROM minecraft-download AS minecraft-mod-263420
+USER minecraft
+WORKDIR /minecraft/mods
 RUN wget -nc -O 'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/290/Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar'
+FROM minecraft-download AS minecraft-mod-317780
+USER minecraft
+WORKDIR /minecraft/mods
 RUN wget -nc -O 'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/304/XaerosWorldMap_1.11.3_Fabric_1.16.4.jar'
 
 FROM itzg/rcon-cli AS rcon-cli
 
-FROM openjdk:16-alpine
-
+FROM minecraft-base
 VOLUME /data
-
 RUN \
-  set -eu; \
-  addgroup -g 1000 minecraft; \
-  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft; \
-  mkdir -p /minecraft/server /minecraft/mods /data; \
-  chown -R minecraft:minecraft /minecraft /data
+  mkdir -p /data && \
+  chown -R minecraft:minecraft /data
 USER minecraft
 WORKDIR /data
 
-COPY --from=minecraft-files /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-files /minecraft/mods/*.jar /minecraft/mods/
-
+COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
+COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.25.0+build.415-1.16.jar' /minecraft/mods/
+COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.4-1.16.jar' /minecraft/mods/
+COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' /minecraft/mods/
+COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
-
 COPY log4j2.xml /minecraft/
 COPY start health-check /
-
 EXPOSE 25565
-
 ENTRYPOINT ["/start"]
 HEALTHCHECK --start-period=1m CMD ["/health-check"]

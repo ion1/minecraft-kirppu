@@ -1,15 +1,18 @@
 # Dockerfile is generated from Dockerfile.liquid
 
-FROM openjdk:16-alpine AS minecraft-files
-
+FROM openjdk:16-alpine AS minecraft-base
 RUN \
-  set -eu; \
-  apk update; \
-  apk add --no-cache wget; \
-  addgroup -g 1000 minecraft; \
-  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft; \
-  mkdir -p /minecraft/server /minecraft/mods; \
+  addgroup -g 1000 minecraft && \
+  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft && \
+  mkdir -p /minecraft/server /minecraft/mods && \
   chown -R minecraft:minecraft /minecraft
+
+FROM minecraft-base AS minecraft-download
+RUN \
+  apk update && \
+  apk add --no-cache wget
+
+FROM minecraft-download AS minecraft-server
 USER minecraft
 WORKDIR /minecraft/server
 RUN wget -nc -O ../fabric-installer.jar {{ fabricInstallerURL | shell_escape }}
@@ -19,36 +22,31 @@ RUN \
   -loaderversion {{ fabricLoaderVersion | shell_escape }} \
   -downloadMinecraft
 
-WORKDIR /minecraft/mods
 {% for mod in mods -%}
+FROM minecraft-download AS minecraft-mod-{{ mod.id | shell_escape }}
+USER minecraft
+WORKDIR /minecraft/mods
 RUN wget -nc -O {{ mod.filename | shell_escape }} {{ mod.url | shell_escape }}
 {% endfor -%}
 
 FROM itzg/rcon-cli AS rcon-cli
 
-FROM openjdk:16-alpine
-
+FROM minecraft-base
 VOLUME /data
-
 RUN \
-  set -eu; \
-  addgroup -g 1000 minecraft; \
-  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft; \
-  mkdir -p /minecraft/server /minecraft/mods /data; \
-  chown -R minecraft:minecraft /minecraft /data
+  mkdir -p /data && \
+  chown -R minecraft:minecraft /data
 USER minecraft
 WORKDIR /data
 
-COPY --from=minecraft-files /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-files /minecraft/mods/*.jar /minecraft/mods/
-
+COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
+{% for mod in mods -%}
+COPY --from=minecraft-mod-{{ mod.id | shell_escape }} /minecraft/mods/{{ mod.filename | shell_escape }} /minecraft/mods/
+{% endfor -%}
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
-
 COPY log4j2.xml /minecraft/
 COPY start health-check /
-
 EXPOSE 25565
-
 ENTRYPOINT ["/start"]
 HEALTHCHECK --start-period=1m CMD ["/health-check"]
