@@ -1,7 +1,7 @@
 import MetadataFetcher from './metadata-fetcher'
 import { urlFilename } from './url-filename'
 
-const MINECRAFT_VERSION = '1.16.3'
+const MINECRAFT_VERSION = '1.16.4'
 
 const MODS: { [name: string]: number } = {
   // https://www.curseforge.com/minecraft/mc-mods/fabric-api

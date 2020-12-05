@@ -18,14 +18,14 @@ WORKDIR /minecraft/server
 RUN wget -nc -O ../fabric-installer.jar 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.6.1.51/fabric-installer-0.6.1.51.jar'
 RUN \
   java -jar ../fabric-installer.jar server \
-  -mcversion '1.16.3' \
+  -mcversion '1.16.4' \
   -loaderversion '0.10.8' \
   -downloadMinecraft
 
 FROM minecraft-download AS minecraft-mod-306612
 USER minecraft
 WORKDIR /minecraft/mods
-RUN wget -nc -O 'fabric-api-0.25.0+build.415-1.16.jar' 'https://edge-service.overwolf.wtf/files/3097/415/fabric-api-0.25.0+build.415-1.16.jar'
+RUN wget -nc -O 'fabric-api-0.27.1+1.16.jar' 'https://edge-service.overwolf.wtf/files/3125/823/fabric-api-0.27.1+1.16.jar'
 FROM minecraft-download AS minecraft-mod-325471
 USER minecraft
 WORKDIR /minecraft/mods
@@ -50,7 +50,7 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.25.0+build.415-1.16.jar' /minecraft/mods/
+COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.27.1+1.16.jar' /minecraft/mods/
 COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.4-1.16.jar' /minecraft/mods/
 COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' /minecraft/mods/
 COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' /minecraft/mods/
