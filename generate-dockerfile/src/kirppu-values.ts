@@ -6,6 +6,14 @@ const MINECRAFT_VERSION = '1.16.4'
 const MODS: { [name: string]: number } = {
   // https://www.curseforge.com/minecraft/mc-mods/fabric-api
   fabric_api: 306612,
+
+  // https://www.curseforge.com/minecraft/mc-mods/phosphor
+  phosphor: 372124,
+  // https://www.curseforge.com/minecraft/mc-mods/lithium
+  lithium: 360438,
+  // Client only: https://www.curseforge.com/minecraft/mc-mods/sodium
+  //sodium: 394468,
+
   // https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
   inventory_sorting: 325471,
   // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap
