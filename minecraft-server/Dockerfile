@@ -25,7 +25,7 @@ RUN \
 FROM minecraft-download AS minecraft-mod-306612
 USER minecraft
 WORKDIR /minecraft/mods
-RUN wget -nc -O 'fabric-api-0.27.1+1.16.jar' 'https://edge-service.overwolf.wtf/files/3125/823/fabric-api-0.27.1+1.16.jar'
+RUN wget -nc -O 'fabric-api-0.28.0+1.16.jar' 'https://edge.forgecdn.net/files/3135/544/fabric-api-0.28.0+1.16.jar'
 FROM minecraft-download AS minecraft-mod-325471
 USER minecraft
 WORKDIR /minecraft/mods
@@ -33,11 +33,11 @@ RUN wget -nc -O 'InventorySorter-1.7.4-1.16.jar' 'https://edge-service.overwolf.
 FROM minecraft-download AS minecraft-mod-263420
 USER minecraft
 WORKDIR /minecraft/mods
-RUN wget -nc -O 'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/290/Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar'
+RUN wget -nc -O 'Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar' 'https://edge.forgecdn.net/files/3132/575/Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar'
 FROM minecraft-download AS minecraft-mod-317780
 USER minecraft
 WORKDIR /minecraft/mods
-RUN wget -nc -O 'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3126/304/XaerosWorldMap_1.11.3_Fabric_1.16.4.jar'
+RUN wget -nc -O 'XaerosWorldMap_1.11.4_Fabric_1.16.4.jar' 'https://edge.forgecdn.net/files/3132/588/XaerosWorldMap_1.11.4_Fabric_1.16.4.jar'
 
 FROM itzg/rcon-cli AS rcon-cli
 
@@ -50,10 +50,10 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.27.1+1.16.jar' /minecraft/mods/
+COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.28.0+1.16.jar' /minecraft/mods/
 COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.4-1.16.jar' /minecraft/mods/
-COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.28.1_Fabric_1.16.4.jar' /minecraft/mods/
-COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.3_Fabric_1.16.4.jar' /minecraft/mods/
+COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar' /minecraft/mods/
+COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.4_Fabric_1.16.4.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
 COPY log4j2.xml /minecraft/
