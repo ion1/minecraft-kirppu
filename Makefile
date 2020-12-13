@@ -21,7 +21,7 @@ docker-build: minecraft-server/Dockerfile
 docker-run:
 	docker run \
 	  --detach --restart unless-stopped \
-	  --memory 1300m --memory-swap 1300m \
+	  --memory 1400m --memory-swap 1400m \
 	  --name minecraft-kirppu \
 	  --publish 25565:25565 \
 	  -v '${DATA}':/data \
@@ -31,7 +31,7 @@ docker-run:
 docker-run-interactive:
 	docker run \
 	  -it --rm \
-	  --memory 1300m --memory-swap 1300m \
+	  --memory 1400m --memory-swap 1400m \
 	  --name minecraft-kirppu \
 	  --publish 25565:25565 \
 	  -v '${DATA}':/data \
