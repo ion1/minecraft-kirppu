@@ -1,0 +1,27 @@
+#!/bin/bash
+set -eu -o pipefail
+
+dl() {
+  local filename="$1"; shift
+
+  if [ "$#" = 0 ]; then
+    >&2 printf 'No URLs given\n'
+    return 1
+  fi
+
+  readarray -t urls < <(printf '%s\n' "$@" | shuf)
+
+  for url in "${urls[@]}"; do
+    printf 'Attempting to download %s\n' "$url"
+
+    if wget -O "$filename" "$url"; then
+      printf 'Downloaded %s\n' "$filename"
+      return 0
+    fi
+  done
+
+  >&2 printf 'Failed to download %s from any source\n' "$filename"
+  return 2
+}
+
+dl "$@"

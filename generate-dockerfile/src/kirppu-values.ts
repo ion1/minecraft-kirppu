@@ -33,8 +33,40 @@ export interface KirppuValues {
 
 export interface Download {
   id: string
-  url: string
+  urls: string[]
   filename: string
+}
+
+// The metadata server gives a URL from one of two mirrors by random. Add URLs
+// corresponding to both mirrors to the Dockerfile to avoid introducing diffs
+// when no mod was updated.
+const FORGE_MIRRORS: [Set<string>] = [
+  new Set([
+    'https://edge.forgecdn.net/files/',
+    'https://edge-service.overwolf.wtf/files/',
+  ]),
+]
+
+function forgeMirrorsFor(url: string): string[] {
+  let urls = new Set([url])
+
+  for (const mirrorSet of FORGE_MIRRORS) {
+    for (const mirrorUrlMatch of mirrorSet) {
+      if (url.startsWith(mirrorUrlMatch)) {
+        const suffix = url.slice(mirrorUrlMatch.length)
+
+        for (const mirrorUrlAdd of mirrorSet) {
+          urls.add(mirrorUrlAdd + suffix)
+        }
+
+        break
+      }
+    }
+  }
+
+  const urlsArray = Array.from(urls)
+  urlsArray.sort()
+  return urlsArray
 }
 
 export default async function getKirppuValues(): Promise<KirppuValues> {
@@ -51,7 +83,7 @@ export default async function getKirppuValues(): Promise<KirppuValues> {
       const url = await metadata.getModFileURL(modId)
       return {
         id: `${modId}`,
-        url,
+        urls: forgeMirrorsFor(url),
         filename: urlFilename(url),
       }
     })),

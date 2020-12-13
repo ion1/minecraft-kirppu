@@ -10,7 +10,8 @@ RUN \
 FROM minecraft-base AS minecraft-download
 RUN \
   apk update && \
-  apk add --no-cache wget
+  apk add --no-cache bash wget
+COPY download-mod /
 
 FROM minecraft-download AS minecraft-server
 USER minecraft
@@ -26,7 +27,7 @@ RUN \
 FROM minecraft-download AS minecraft-mod-{{ mod.id | shell_escape }}
 USER minecraft
 WORKDIR /minecraft/mods
-RUN wget -nc -O {{ mod.filename | shell_escape }} {{ mod.url | shell_escape }}
+RUN /download-mod {{ mod.filename | shell_escape }}{% for url in mod.urls %} {{ url | shell_escape }}{% endfor %}
 {% endfor -%}
 
 FROM itzg/rcon-cli AS rcon-cli
