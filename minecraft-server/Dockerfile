@@ -26,11 +26,11 @@ RUN \
 FROM minecraft-download AS minecraft-mod-306612
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'fabric-api-0.28.1+1.16.jar' 'https://edge-service.overwolf.wtf/files/3136/798/fabric-api-0.28.1+1.16.jar' 'https://edge.forgecdn.net/files/3136/798/fabric-api-0.28.1+1.16.jar'
+RUN /download-mod 'fabric-api-0.28.3+1.16.jar' 'https://edge-service.overwolf.wtf/files/3141/112/fabric-api-0.28.3+1.16.jar' 'https://edge.forgecdn.net/files/3141/112/fabric-api-0.28.3+1.16.jar'
 FROM minecraft-download AS minecraft-mod-372124
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'phosphor-fabric-mc1.16.1-0.6.0+build.7.jar' 'https://edge-service.overwolf.wtf/files/2987/621/phosphor-fabric-mc1.16.1-0.6.0+build.7.jar' 'https://edge.forgecdn.net/files/2987/621/phosphor-fabric-mc1.16.1-0.6.0+build.7.jar'
+RUN /download-mod 'phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' 'https://edge-service.overwolf.wtf/files/3141/950/phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' 'https://edge.forgecdn.net/files/3141/950/phosphor-fabric-mc1.16.3-0.7.0+build.10.jar'
 FROM minecraft-download AS minecraft-mod-360438
 USER minecraft
 WORKDIR /minecraft/mods
@@ -42,7 +42,7 @@ RUN /download-mod 'InventorySorter-1.7.4-1.16.jar' 'https://edge-service.overwol
 FROM minecraft-download AS minecraft-mod-263420
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3132/575/Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar' 'https://edge.forgecdn.net/files/3132/575/Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar'
+RUN /download-mod 'Xaeros_Minimap_20.29.0_Fabric_1.16.4.jar' 'https://edge-service.overwolf.wtf/files/3139/761/Xaeros_Minimap_20.29.0_Fabric_1.16.4.jar' 'https://edge.forgecdn.net/files/3139/761/Xaeros_Minimap_20.29.0_Fabric_1.16.4.jar'
 FROM minecraft-download AS minecraft-mod-317780
 USER minecraft
 WORKDIR /minecraft/mods
@@ -59,11 +59,11 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.28.1+1.16.jar' /minecraft/mods/
-COPY --from=minecraft-mod-372124 /minecraft/mods/'phosphor-fabric-mc1.16.1-0.6.0+build.7.jar' /minecraft/mods/
+COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.28.3+1.16.jar' /minecraft/mods/
+COPY --from=minecraft-mod-372124 /minecraft/mods/'phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' /minecraft/mods/
 COPY --from=minecraft-mod-360438 /minecraft/mods/'lithium-fabric-mc1.16.4-0.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.4-1.16.jar' /minecraft/mods/
-COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.28.2_Fabric_1.16.4.jar' /minecraft/mods/
+COPY --from=minecraft-mod-263420 /minecraft/mods/'Xaeros_Minimap_20.29.0_Fabric_1.16.4.jar' /minecraft/mods/
 COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.4_Fabric_1.16.4.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
