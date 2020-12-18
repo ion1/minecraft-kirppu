@@ -17,6 +17,13 @@ generate-dockerfile: minecraft-server/Dockerfile.liquid
 docker-build: minecraft-server/Dockerfile
 	docker build --tag minecraft-kirppu:local minecraft-server
 
+# TODO: Run a Docker registry
+.PHONY: docker-upload
+docker-upload:
+	test -n "$$SSH_SERVER"
+	ssh-agent bash -eu -o pipefail -c \
+	  'ssh-add; docker save minecraft-kirppu:local | gzip | pv | ssh "$$SSH_SERVER" docker load'
+
 .PHONY: docker-run
 docker-run:
 	docker run \
