@@ -16,8 +16,8 @@ const MODS: { [name: string]: number } = {
 
   // https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
   inventory_sorting: 325471,
-  // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap
-  xaeros_minimap: 263420,
+  // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap-fair-play-edition
+  xaeros_minimap_fp: 263466,
   // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map
   xaeros_world_map: 317780,
 }
