@@ -27,18 +27,22 @@ FROM minecraft-download AS minecraft-mod-306612
 USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'fabric-api-0.30.0+1.16.jar' 'https://edge-service.overwolf.wtf/files/3183/643/fabric-api-0.30.0+1.16.jar' 'https://edge.forgecdn.net/files/3183/643/fabric-api-0.30.0+1.16.jar'
+
 FROM minecraft-download AS minecraft-mod-372124
 USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' 'https://edge-service.overwolf.wtf/files/3141/950/phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' 'https://edge.forgecdn.net/files/3141/950/phosphor-fabric-mc1.16.3-0.7.0+build.10.jar'
+
 FROM minecraft-download AS minecraft-mod-360438
 USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'lithium-fabric-mc1.16.5-0.6.3.jar' 'https://edge-service.overwolf.wtf/files/3190/573/lithium-fabric-mc1.16.5-0.6.3.jar' 'https://edge.forgecdn.net/files/3190/573/lithium-fabric-mc1.16.5-0.6.3.jar'
+
 FROM minecraft-download AS minecraft-mod-263466
 USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'Xaeros_Minimap_FP21.1.0_Fabric_1.16.5.jar' 'https://edge-service.overwolf.wtf/files/3177/518/Xaeros_Minimap_FP21.1.0_Fabric_1.16.5.jar' 'https://edge.forgecdn.net/files/3177/518/Xaeros_Minimap_FP21.1.0_Fabric_1.16.5.jar'
+
 FROM minecraft-download AS minecraft-mod-317780
 USER minecraft
 WORKDIR /minecraft/mods

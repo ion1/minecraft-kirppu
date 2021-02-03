@@ -28,8 +28,8 @@ FROM minecraft-download AS minecraft-mod-{{ mod.id | shell_escape }}
 USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod {{ mod.filename | shell_escape }}{% for url in mod.urls %} {{ url | shell_escape }}{% endfor %}
-{% endfor -%}
 
+{% endfor -%}
 FROM itzg/rcon-cli AS rcon-cli
 
 FROM minecraft-base
