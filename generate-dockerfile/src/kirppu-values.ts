@@ -1,7 +1,7 @@
 import MetadataFetcher from './metadata-fetcher'
 import { urlFilename } from './url-filename'
 
-const MINECRAFT_VERSION = '1.16.4'
+const MINECRAFT_VERSION = '1.16.5'
 
 const MODS: { [name: string]: number } = {
   // https://www.curseforge.com/minecraft/mc-mods/fabric-api
@@ -15,7 +15,8 @@ const MODS: { [name: string]: number } = {
   //sodium: 394468,
 
   // https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
-  inventory_sorting: 325471,
+  // TODO: Waiting for 1.16.5 compatibility.
+  //inventory_sorting: 325471,
   // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap-fair-play-edition
   xaeros_minimap_fp: 263466,
   // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map
