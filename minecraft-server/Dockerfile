@@ -38,6 +38,11 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'lithium-fabric-mc1.16.5-0.6.3.jar' 'https://edge-service.overwolf.wtf/files/3190/573/lithium-fabric-mc1.16.5-0.6.3.jar' 'https://edge.forgecdn.net/files/3190/573/lithium-fabric-mc1.16.5-0.6.3.jar'
 
+FROM minecraft-download AS minecraft-mod-325471
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'InventorySorter-1.7.7-1.16.jar' 'https://edge-service.overwolf.wtf/files/3205/812/InventorySorter-1.7.7-1.16.jar' 'https://edge.forgecdn.net/files/3205/812/InventorySorter-1.7.7-1.16.jar'
+
 FROM minecraft-download AS minecraft-mod-263466
 USER minecraft
 WORKDIR /minecraft/mods
@@ -62,6 +67,7 @@ COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
 COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.30.0+1.16.jar' /minecraft/mods/
 COPY --from=minecraft-mod-372124 /minecraft/mods/'phosphor-fabric-mc1.16.3-0.7.0+build.10.jar' /minecraft/mods/
 COPY --from=minecraft-mod-360438 /minecraft/mods/'lithium-fabric-mc1.16.5-0.6.3.jar' /minecraft/mods/
+COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.7-1.16.jar' /minecraft/mods/
 COPY --from=minecraft-mod-263466 /minecraft/mods/'Xaeros_Minimap_FP21.1.0_Fabric_1.16.5.jar' /minecraft/mods/
 COPY --from=minecraft-mod-317780 /minecraft/mods/'XaerosWorldMap_1.11.11.2_Fabric_1.16.5.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
