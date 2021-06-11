@@ -1,16 +1,14 @@
 # Dockerfile is generated from Dockerfile.liquid
 
-FROM openjdk:16-alpine AS minecraft-base
+FROM openjdk:16 AS minecraft-base
 RUN \
-  addgroup -g 1000 minecraft && \
-  adduser -u 1000 -G minecraft -s /bin/sh -D -g '' minecraft && \
+  groupadd -g 1000 minecraft && \
+  useradd -u 1000 -g minecraft -s /bin/sh minecraft && \
   mkdir -p /minecraft/server /minecraft/mods && \
   chown -R minecraft:minecraft /minecraft
 
 FROM minecraft-base AS minecraft-download
-RUN \
-  apk update && \
-  apk add --no-cache bash wget
+RUN microdnf install wget && microdnf clean all
 COPY download-mod /
 
 FROM minecraft-download AS minecraft-server
