@@ -14,22 +14,22 @@ COPY download-mod /
 FROM minecraft-download AS minecraft-server
 USER minecraft
 WORKDIR /minecraft/server
-RUN wget -nc -O ../fabric-installer.jar 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.7.3/fabric-installer-0.7.3.jar'
+RUN wget -nc -O ../fabric-installer.jar 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.7.4/fabric-installer-0.7.4.jar'
 RUN \
   java -jar ../fabric-installer.jar server \
   -mcversion '1.17' \
-  -loaderversion '0.11.3' \
+  -loaderversion '0.11.6' \
   -downloadMinecraft
 
 FROM minecraft-download AS minecraft-mod-306612
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'fabric-api-0.34.10+1.17.jar' 'https://edge-service.overwolf.wtf/files/3346/352/fabric-api-0.34.10+1.17.jar' 'https://edge.forgecdn.net/files/3346/352/fabric-api-0.34.10+1.17.jar'
+RUN /download-mod 'fabric-api-0.35.2+1.17.jar' 'https://edge-service.overwolf.wtf/files/3352/240/fabric-api-0.35.2+1.17.jar' 'https://edge.forgecdn.net/files/3352/240/fabric-api-0.35.2+1.17.jar'
 
 FROM minecraft-download AS minecraft-mod-360438
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'lithium-fabric-mc1.17-0.7.0.jar' 'https://edge-service.overwolf.wtf/files/3344/37/lithium-fabric-mc1.17-0.7.0.jar' 'https://edge.forgecdn.net/files/3344/37/lithium-fabric-mc1.17-0.7.0.jar'
+RUN /download-mod 'lithium-fabric-mc1.17-0.7.1.jar' 'https://edge-service.overwolf.wtf/files/3354/305/lithium-fabric-mc1.17-0.7.1.jar' 'https://edge.forgecdn.net/files/3354/305/lithium-fabric-mc1.17-0.7.1.jar'
 
 FROM minecraft-download AS minecraft-mod-225179
 USER minecraft
@@ -47,8 +47,8 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
-COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.34.10+1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-360438 /minecraft/mods/'lithium-fabric-mc1.17-0.7.0.jar' /minecraft/mods/
+COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.35.2+1.17.jar' /minecraft/mods/
+COPY --from=minecraft-mod-360438 /minecraft/mods/'lithium-fabric-mc1.17-0.7.1.jar' /minecraft/mods/
 COPY --from=minecraft-mod-225179 /minecraft/mods/'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
