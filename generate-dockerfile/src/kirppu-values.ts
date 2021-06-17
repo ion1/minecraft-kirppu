@@ -16,8 +16,7 @@ const MODS: { [name: string]: number } = {
   //sodium: 394468,
 
   // https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
-  // TODO: Waiting for 1.17 support
-  //inventory_sorting: 325471,
+  inventory_sorting: 325471,
   // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap-fair-play-edition
   // TODO: Waiting for 1.17 support
   //xaeros_minimap_fp: 263466,

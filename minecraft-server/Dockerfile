@@ -31,6 +31,11 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'lithium-fabric-mc1.17-0.7.1.jar' 'https://edge-service.overwolf.wtf/files/3354/305/lithium-fabric-mc1.17-0.7.1.jar' 'https://edge.forgecdn.net/files/3354/305/lithium-fabric-mc1.17-0.7.1.jar'
 
+FROM minecraft-download AS minecraft-mod-325471
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'InventorySorter-1.7.9-1.17.jar' 'https://edge-service.overwolf.wtf/files/3351/25/InventorySorter-1.7.9-1.17.jar' 'https://edge.forgecdn.net/files/3351/25/InventorySorter-1.7.9-1.17.jar'
+
 FROM minecraft-download AS minecraft-mod-225179
 USER minecraft
 WORKDIR /minecraft/mods
@@ -49,6 +54,7 @@ WORKDIR /data
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
 COPY --from=minecraft-mod-306612 /minecraft/mods/'fabric-api-0.35.2+1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-360438 /minecraft/mods/'lithium-fabric-mc1.17-0.7.1.jar' /minecraft/mods/
+COPY --from=minecraft-mod-325471 /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-225179 /minecraft/mods/'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
