@@ -7,13 +7,23 @@ const MODS: { [name: string]: number } = {
   // https://www.curseforge.com/minecraft/mc-mods/fabric-api
   fabric_api: 306612,
 
+  // https://github.com/Madis0/fabulously-optimized/#included-mods
+
   // https://www.curseforge.com/minecraft/mc-mods/phosphor
   // TODO: Waiting for 1.17 support
   //phosphor: 372124,
   // https://www.curseforge.com/minecraft/mc-mods/lithium
   lithium: 360438,
-  // Client only: https://www.curseforge.com/minecraft/mc-mods/sodium
-  //sodium: 394468,
+  // https://modrinth.com/mod/hydrogen
+  // TODO: Not on CurseForge
+  //hydrogen: null,
+  // https://www.curseforge.com/minecraft/mc-mods/ferritecore-fabric
+  // TODO: Waiting for 1.17 support
+  //ferritecore: 459857,
+  // https://www.curseforge.com/minecraft/mc-mods/lazydfu
+  lazydfu: 433518,
+  // https://www.curseforge.com/minecraft/mc-mods/smooth-boot
+  smooth_boot: 415758,
 
   // https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
   inventory_sorting: 325471,
