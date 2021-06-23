@@ -6,10 +6,16 @@ all: docker-build
 minecraft-server/Dockerfile: minecraft-server/Dockerfile.liquid
 	$(MAKE) generate-dockerfile
 
+.PHONY: generate-dockerfile-build
+generate-dockerfile-build:
+	docker build --tag minecraft-kirppu-generate-dockerfile:local generate-dockerfile
+
+.PHONY: generate-dockerfile-scan
+generate-dockerfile-scan:
+	docker scan --accept-license minecraft-kirppu-generate-dockerfile:local
+
 .PHONY: generate-dockerfile
 generate-dockerfile: minecraft-server/Dockerfile.liquid
-	docker build --tag minecraft-kirppu-generate-dockerfile:local generate-dockerfile
-	docker scan --accept-license minecraft-kirppu-generate-dockerfile:local
 	docker run -i --rm minecraft-kirppu-generate-dockerfile:local \
 	  <minecraft-server/Dockerfile.liquid \
 	  >minecraft-server/Dockerfile
@@ -17,6 +23,9 @@ generate-dockerfile: minecraft-server/Dockerfile.liquid
 .PHONY: docker-build
 docker-build: minecraft-server/Dockerfile
 	docker build --tag minecraft-kirppu:local minecraft-server
+
+.PHONY: docker-scan
+docker-scan: minecraft-server/Dockerfile
 	docker scan --accept-license minecraft-kirppu:local
 
 # TODO: Run a Docker registry
