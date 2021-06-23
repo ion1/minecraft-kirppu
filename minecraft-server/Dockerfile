@@ -51,6 +51,11 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'smoothboot-fabric-1.16.5-1.6.0.jar' 'https://edge-service.overwolf.wtf/files/3248/104/smoothboot-fabric-1.16.5-1.6.0.jar' 'https://edge.forgecdn.net/files/3248/104/smoothboot-fabric-1.16.5-1.6.0.jar'
 
+FROM minecraft-download AS minecraft-mod-recipe_cache
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'recipecache-0.2.0.jar' 'https://edge-service.overwolf.wtf/files/3348/298/recipecache-0.2.0.jar' 'https://edge.forgecdn.net/files/3348/298/recipecache-0.2.0.jar'
+
 FROM minecraft-download AS minecraft-mod-inventory_sorting
 USER minecraft
 WORKDIR /minecraft/mods
@@ -78,6 +83,7 @@ COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17-0.3.j
 COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.0-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
+COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-voxelmap /minecraft/mods/'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' /minecraft/mods/
 COPY --from=rcon-cli /rcon-cli /
