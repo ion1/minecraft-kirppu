@@ -1,3 +1,56 @@
+---
+minecraft_version: "1.17"
+
+mods:
+  fabric_api:
+    # https://modrinth.com/mod/fabric-api
+    id: { modrinth: P7dR8mSH }
+    required: true
+
+  # https://github.com/Madis0/fabulously-optimized/#included-mods
+  # TODO: Waiting for 1.17 compatibility.
+  #phosphor:
+  #  # https://modrinth.com/mod/phosphor
+  #  id: { modrinth: hEOCdOgW }
+  lithium:
+    # https://modrinth.com/mod/lithium
+    id: { modrinth: gvQqBUqZ }
+  hydrogen:
+    # https://modrinth.com/mod/hydrogen
+    id: { modrinth: AZomiSrC }
+  ferrite_core:
+    # https://modrinth.com/mod/ferrite-core
+    id: { modrinth: uXXizFIs }
+  lazydfu:
+    # https://modrinth.com/mod/lazydfu
+    id: { modrinth: hvFnDODi }
+  smooth_boot:
+    # https://www.curseforge.com/minecraft/mc-mods/smooth-boot
+    # The version on Modrinth is missing the 1.17 compatibility tag.
+    # https://modrinth.com/mod/smoothboot-fabric
+    id: { curseforge: 415758 }
+
+  inventory_sorting:
+    # https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
+    id: { curseforge: 325471 }
+    required: true
+
+  # TODO: Waiting for 1.17 support
+  #xaeros_minimap_fair_play_edition:
+  #  # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap-fair-play-edition
+  #  id: { curseforge: 263466 }
+  #  required: true
+  #xaeros_world_map:
+  #  # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map
+  #  id: { curseforge: 317780 }
+  #  required: true
+
+  # Using temporarily instead of Xaero's mods
+  voxelmap:
+    # https://www.curseforge.com/minecraft/mc-mods/voxelmap
+    id: { curseforge: 225179 }
+    required: true
+---
 # Dockerfile is generated from Dockerfile.liquid
 
 FROM openjdk:16 AS minecraft-base
