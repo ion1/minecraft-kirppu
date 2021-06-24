@@ -98,6 +98,7 @@ WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin/
+COPY --from=itzg/minecraft-server /usr/local/bin/mc-monitor /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 {% for mod in mods -%}
 COPY --from=minecraft-mod-{{ mod.id | shell_escape }} /minecraft/mods/{{ mod.filename | shell_escape }} /minecraft/mods/

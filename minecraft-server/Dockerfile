@@ -80,6 +80,7 @@ WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin/
+COPY --from=itzg/minecraft-server /usr/local/bin/mc-monitor /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.36.0+1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17-0.7.2.jar' /minecraft/mods/
