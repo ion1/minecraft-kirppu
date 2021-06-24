@@ -56,15 +56,19 @@ mods:
 ---
 # Dockerfile is generated from Dockerfile.liquid
 
-FROM openjdk:16 AS minecraft-base
+# Use the same image as itzg/minecraft-server.
+FROM adoptopenjdk:16-jre AS minecraft-base
 RUN \
-  groupadd -g 1000 minecraft && \
-  useradd -u 1000 -g minecraft -s /bin/sh minecraft && \
+  addgroup --gid 1000 minecraft && \
+  adduser --system --home /minecraft --shell /bin/false --uid 1000 --ingroup minecraft minecraft && \
   mkdir -p /minecraft/server /minecraft/mods && \
   chown -R minecraft:minecraft /minecraft
 
 FROM minecraft-base AS minecraft-download
-RUN microdnf install wget && microdnf clean all
+RUN \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y wget && \
+  apt-get clean
 COPY download-mod /
 
 FROM minecraft-download AS minecraft-server
@@ -84,8 +88,6 @@ WORKDIR /minecraft/mods
 RUN /download-mod {{ mod.filename | shell_escape }}{% for url in mod.urls %} {{ url | shell_escape }}{% endfor %}
 
 {% endfor -%}
-FROM itzg/rcon-cli AS rcon-cli
-
 FROM minecraft-base
 VOLUME /data
 RUN \
@@ -95,10 +97,11 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
+COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin/
+COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 {% for mod in mods -%}
 COPY --from=minecraft-mod-{{ mod.id | shell_escape }} /minecraft/mods/{{ mod.filename | shell_escape }} /minecraft/mods/
 {% endfor -%}
-COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
 COPY log4j2.xml /minecraft/
 COPY start health-check /

@@ -1,14 +1,18 @@
 # Dockerfile is generated from Dockerfile.liquid
 
-FROM openjdk:16 AS minecraft-base
+# Use the same image as itzg/minecraft-server.
+FROM adoptopenjdk:16-jre AS minecraft-base
 RUN \
-  groupadd -g 1000 minecraft && \
-  useradd -u 1000 -g minecraft -s /bin/sh minecraft && \
+  addgroup --gid 1000 minecraft && \
+  adduser --system --home /minecraft --shell /bin/false --uid 1000 --ingroup minecraft minecraft && \
   mkdir -p /minecraft/server /minecraft/mods && \
   chown -R minecraft:minecraft /minecraft
 
 FROM minecraft-base AS minecraft-download
-RUN microdnf install wget && microdnf clean all
+RUN \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y wget && \
+  apt-get clean
 COPY download-mod /
 
 FROM minecraft-download AS minecraft-server
@@ -66,8 +70,6 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' 'https://edge-service.overwolf.wtf/files/3345/206/fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' 'https://edge.forgecdn.net/files/3345/206/fabricmod_VoxelMap-1.10.15_for_1.17.0.jar'
 
-FROM itzg/rcon-cli AS rcon-cli
-
 FROM minecraft-base
 VOLUME /data
 RUN \
@@ -77,6 +79,8 @@ USER minecraft
 WORKDIR /data
 
 COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
+COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin/
+COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.36.0+1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17-0.7.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17-0.3.jar' /minecraft/mods/
@@ -86,7 +90,6 @@ COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-voxelmap /minecraft/mods/'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' /minecraft/mods/
-COPY --from=rcon-cli /rcon-cli /
 COPY rcon /
 COPY log4j2.xml /minecraft/
 COPY start health-check /

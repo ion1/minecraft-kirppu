@@ -10,7 +10,9 @@ set -eu
 printf 'Linking %s -> %s\n' 'mods' '/minecraft/mods'
 ln -Tfs /minecraft/mods mods
 
-exec java \
+exec \
+  mc-server-runner --stop-duration 1m \
+  java \
   -Xmx1000M -Xms1000M \
   -Dlog4j.configurationFile=/minecraft/log4j2.xml \
   -jar /minecraft/server/fabric-server-launch.jar \

@@ -57,7 +57,7 @@ docker-run-interactive:
 
 .PHONY: docker-stop
 docker-stop:
-	docker stop minecraft-kirppu
+	docker stop -t 90 minecraft-kirppu
 
 .PHONY: docker-rm
 docker-rm:
