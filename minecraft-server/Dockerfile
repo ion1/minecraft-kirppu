@@ -2,6 +2,10 @@
 
 # Use the same image as itzg/minecraft-server.
 FROM adoptopenjdk:16-jre AS minecraft-base
+RUN apt-get update
+RUN \
+  DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade && \
+  apt-get clean
 RUN \
   addgroup --gid 1000 minecraft && \
   adduser --system --home /minecraft --shell /bin/false --uid 1000 --ingroup minecraft minecraft && \
@@ -10,7 +14,6 @@ RUN \
 
 FROM minecraft-base AS minecraft-download
 RUN \
-  apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y wget && \
   apt-get clean
 COPY download-mod /
