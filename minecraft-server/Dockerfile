@@ -46,7 +46,7 @@ RUN /download-mod 'hydrogen-fabric-mc1.17-0.3.jar' 'https://cdn.modrinth.com/dat
 FROM minecraft-download AS minecraft-mod-ferrite_core
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'ferritecore-3.0.0-fabric.jar' 'https://cdn.modrinth.com/data/uXXizFIs/versions/3.0.0/ferritecore-3.0.0-fabric.jar'
+RUN /download-mod 'ferritecore-3.0.1-fabric.jar' 'https://cdn.modrinth.com/data/uXXizFIs/versions/3.0.1/ferritecore-3.0.1-fabric.jar'
 
 FROM minecraft-download AS minecraft-mod-lazydfu
 USER minecraft
@@ -88,7 +88,7 @@ COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.36.0+1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17-0.7.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17-0.3.jar' /minecraft/mods/
-COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.0-fabric.jar' /minecraft/mods/
+COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.1-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
