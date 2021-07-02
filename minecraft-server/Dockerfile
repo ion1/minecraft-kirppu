@@ -68,10 +68,15 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'InventorySorter-1.7.9-1.17.jar' 'https://edge-service.overwolf.wtf/files/3351/25/InventorySorter-1.7.9-1.17.jar' 'https://edge.forgecdn.net/files/3351/25/InventorySorter-1.7.9-1.17.jar'
 
-FROM minecraft-download AS minecraft-mod-voxelmap
+FROM minecraft-download AS minecraft-mod-xaeros_minimap_fair_play_edition
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' 'https://edge-service.overwolf.wtf/files/3345/206/fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' 'https://edge.forgecdn.net/files/3345/206/fabricmod_VoxelMap-1.10.15_for_1.17.0.jar'
+RUN /download-mod 'Xaeros_Minimap_FP21.12.3_Fabric_1.17.jar' 'https://edge-service.overwolf.wtf/files/3372/764/Xaeros_Minimap_FP21.12.3_Fabric_1.17.jar' 'https://edge.forgecdn.net/files/3372/764/Xaeros_Minimap_FP21.12.3_Fabric_1.17.jar'
+
+FROM minecraft-download AS minecraft-mod-xaeros_world_map
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'XaerosWorldMap_1.14.4_Fabric_1.17.jar' 'https://edge-service.overwolf.wtf/files/3365/443/XaerosWorldMap_1.14.4_Fabric_1.17.jar' 'https://edge.forgecdn.net/files/3365/443/XaerosWorldMap_1.14.4_Fabric_1.17.jar'
 
 FROM minecraft-base
 VOLUME /data
@@ -93,7 +98,8 @@ COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft
 COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-voxelmap /minecraft/mods/'fabricmod_VoxelMap-1.10.15_for_1.17.0.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.12.3_Fabric_1.17.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.14.4_Fabric_1.17.jar' /minecraft/mods/
 COPY rcon /
 COPY log4j2.xml /minecraft/
 COPY start health-check /
