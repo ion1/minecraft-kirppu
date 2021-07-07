@@ -36,7 +36,7 @@ RUN /download-mod 'fabric-api-0.36.0+1.17.jar' 'https://cdn.modrinth.com/data/P7
 FROM minecraft-download AS minecraft-mod-lithium
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'lithium-fabric-mc1.17-0.7.2.jar' 'https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.17-0.7.2/lithium-fabric-mc1.17-0.7.2.jar'
+RUN /download-mod 'lithium-fabric-mc1.17.1-0.7.3.jar' 'https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.17.1-0.7.3/lithium-fabric-mc1.17.1-0.7.3.jar'
 
 FROM minecraft-download AS minecraft-mod-hydrogen
 USER minecraft
@@ -71,12 +71,12 @@ RUN /download-mod 'InventorySorter-1.7.9-1.17.jar' 'https://edge-service.overwol
 FROM minecraft-download AS minecraft-mod-xaeros_minimap_fair_play_edition
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'Xaeros_Minimap_FP21.12.5_Fabric_1.17.jar' 'https://edge-service.overwolf.wtf/files/3378/417/Xaeros_Minimap_FP21.12.5_Fabric_1.17.jar' 'https://edge.forgecdn.net/files/3378/417/Xaeros_Minimap_FP21.12.5_Fabric_1.17.jar'
+RUN /download-mod 'Xaeros_Minimap_FP21.12.5.1_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3379/220/Xaeros_Minimap_FP21.12.5.1_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3379/220/Xaeros_Minimap_FP21.12.5.1_Fabric_1.17.1.jar'
 
 FROM minecraft-download AS minecraft-mod-xaeros_world_map
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'XaerosWorldMap_1.14.5.1_Fabric_1.17.jar' 'https://edge-service.overwolf.wtf/files/3375/880/XaerosWorldMap_1.14.5.1_Fabric_1.17.jar' 'https://edge.forgecdn.net/files/3375/880/XaerosWorldMap_1.14.5.1_Fabric_1.17.jar'
+RUN /download-mod 'XaerosWorldMap_1.14.5.2_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3379/205/XaerosWorldMap_1.14.5.2_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3379/205/XaerosWorldMap_1.14.5.2_Fabric_1.17.1.jar'
 
 FROM minecraft-base
 VOLUME /data
@@ -91,15 +91,15 @@ COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-monitor /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.36.0+1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17-0.7.2.jar' /minecraft/mods/
+COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17.1-0.7.3.jar' /minecraft/mods/
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17-0.3.jar' /minecraft/mods/
 COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.1-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.12.5_Fabric_1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.14.5.1_Fabric_1.17.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.12.5.1_Fabric_1.17.1.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.14.5.2_Fabric_1.17.1.jar' /minecraft/mods/
 COPY rcon /
 COPY log4j2.xml /minecraft/
 COPY start health-check /
