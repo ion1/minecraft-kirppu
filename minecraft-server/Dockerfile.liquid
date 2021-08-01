@@ -1,5 +1,5 @@
 ---
-minecraft_version: "1.17"
+minecraft_version: "1.17.1"
 
 mods:
   fabric_api:
@@ -24,17 +24,19 @@ mods:
     id: { modrinth: AZomiSrC }
   ferrite_core:
     # https://modrinth.com/mod/ferrite-core
-    id: { modrinth: uXXizFIs }
-    #id: { curseforge: 459857 }
+    # The version on Modrinth is missing the 1.17.1 compatibility tag.
+    #id: { modrinth: uXXizFIs }
+    id: { curseforge: 459857 }
   lazydfu:
     # https://modrinth.com/mod/lazydfu
     id: { modrinth: hvFnDODi }
     #id: { curseforge: 433518 }
-  smooth_boot:
-    # https://www.curseforge.com/minecraft/mc-mods/smooth-boot
-    # The version on Modrinth is missing the 1.17 compatibility tag.
-    #id: { modrinth: FWumhS4T }
-    id: { curseforge: 415758 }
+  # TODO: Waiting for 1.17.1 compatibility.
+  #smooth_boot:
+  #  # https://www.curseforge.com/minecraft/mc-mods/smooth-boot
+  #  # The version on Modrinth is missing the 1.17 compatibility tag.
+  #  #id: { modrinth: FWumhS4T }
+  #  id: { curseforge: 415758 }
   recipe_cache:
     # https://www.curseforge.com/minecraft/mc-mods/recipe-cache
     id: { curseforge: 473492 }
@@ -42,6 +44,10 @@ mods:
   inventory_sorting:
     # https://www.curseforge.com/minecraft/mc-mods/inventory-sorting
     id: { curseforge: 325471 }
+    # TODO: Not marked as compatible with 1.17.1.
+    compatibility_override:
+      filename: "InventorySorter-1.7.9-1.17.jar"
+      versions: ["1.17.1"]
 
   xaeros_minimap_fair_play_edition:
     # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap-fair-play-edition
