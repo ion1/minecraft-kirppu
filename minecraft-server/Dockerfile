@@ -71,12 +71,12 @@ RUN /download-mod 'InventorySorter-1.7.9-1.17.jar' 'https://edge-service.overwol
 FROM minecraft-download AS minecraft-mod-xaeros_minimap_fair_play_edition
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'Xaeros_Minimap_FP21.13.0_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3388/642/Xaeros_Minimap_FP21.13.0_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3388/642/Xaeros_Minimap_FP21.13.0_Fabric_1.17.1.jar'
+RUN /download-mod 'Xaeros_Minimap_FP21.14.1_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3407/826/Xaeros_Minimap_FP21.14.1_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3407/826/Xaeros_Minimap_FP21.14.1_Fabric_1.17.1.jar'
 
 FROM minecraft-download AS minecraft-mod-xaeros_world_map
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'XaerosWorldMap_1.15.0.1_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3396/263/XaerosWorldMap_1.15.0.1_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3396/263/XaerosWorldMap_1.15.0.1_Fabric_1.17.1.jar'
+RUN /download-mod 'XaerosWorldMap_1.16.0_Fabric_1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3405/520/XaerosWorldMap_1.16.0_Fabric_1.17.1.jar' 'https://edge.forgecdn.net/files/3405/520/XaerosWorldMap_1.16.0_Fabric_1.17.1.jar'
 
 FROM minecraft-base
 VOLUME /data
@@ -98,8 +98,8 @@ COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft
 COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
-COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.13.0_Fabric_1.17.1.jar' /minecraft/mods/
-COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.15.0.1_Fabric_1.17.1.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.14.1_Fabric_1.17.1.jar' /minecraft/mods/
+COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.16.0_Fabric_1.17.1.jar' /minecraft/mods/
 COPY rcon /
 COPY log4j2.xml /minecraft/
 COPY start health-check /
