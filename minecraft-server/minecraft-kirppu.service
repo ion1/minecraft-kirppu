@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker rm %N
 ExecStart=/usr/bin/docker run --rm \
     --memory 1400m --memory-swap 1400m \
     --name %N \
-    --publish 25565:25565 \
+    --publish 25565:25565 --publish 25565:25565/udp \
     -v /srv/%N:/data \
     %N:local
 ExecStartPost=/bin/sh -eu -c 'until test "$$(/usr/bin/docker inspect -f '{{.State.Health.Status}}' %N)" = healthy; do sleep 5; done'
