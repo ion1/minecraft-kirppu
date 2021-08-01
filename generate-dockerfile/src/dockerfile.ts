@@ -30,9 +30,15 @@ type Frontmatter = {
 
 type FrontmatterMod = {
   id: FrontmatterModId;
+  compatibility_override?: FrontmatterModCompatibilityOverride;
 };
 
 type FrontmatterModId = { modrinth: string } | { curseforge: number };
+
+type FrontmatterModCompatibilityOverride = {
+  filename: string;
+  versions: string[];
+};
 
 const modIdSchema: JSONSchemaType<FrontmatterModId> = {
   type: "object",
@@ -49,11 +55,22 @@ const modIdSchema: JSONSchemaType<FrontmatterModId> = {
   ],
 };
 
+const compatibilityOverrideSchema: JSONSchemaType<FrontmatterModCompatibilityOverride> =
+  {
+    type: "object",
+    required: ["filename", "versions"],
+    properties: {
+      filename: { type: "string" },
+      versions: { type: "array", items: { type: "string" } },
+    },
+  };
+
 const modSchema: JSONSchemaType<FrontmatterMod> = {
   type: "object",
   required: ["id"],
   properties: {
     id: modIdSchema,
+    compatibility_override: { ...compatibilityOverrideSchema, nullable: true },
   },
 };
 
@@ -104,15 +121,20 @@ async function dockerfileEnvironment(
   const fabricLoaderVersionP = fabric.getLoaderVersion(minecraftVersion);
   const dockerFileModPs = Object.entries(frontmatterMods).map(
     async ([downloadId, mod]) => {
-      const { id } = mod;
+      const { id, compatibility_override: compatibilityOverride } = mod;
       let download: Download | null = null;
 
       if ("modrinth" in id) {
-        download = await modrinth.getModDownload(id.modrinth, minecraftVersion);
+        download = await modrinth.getModDownload(
+          id.modrinth,
+          minecraftVersion,
+          compatibilityOverride
+        );
       } else if ("curseforge" in id) {
         download = await curseforge.getModDownload(
           id.curseforge,
-          minecraftVersion
+          minecraftVersion,
+          compatibilityOverride
         );
       } else {
         const impossible: never = id;

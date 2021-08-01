@@ -1,13 +1,17 @@
 import * as curseforge from "mc-curseforge-api";
+import type ModFile from "mc-curseforge-api";
 
 import { Download } from "./types";
 import { urlFilename } from "./url-filename";
 
 export async function getModDownload(
   modId: number,
-  minecraftVersion: string
+  minecraftVersion: string,
+  compatibilityOverride?: { filename: string; versions: string[] }
 ): Promise<Download | null> {
-  const files = await curseforge.getModFiles(modId);
+  const files = (await curseforge.getModFiles(modId))
+    .map(fixFilename)
+    .map((file) => applyCompatibilityOverride(file, compatibilityOverride));
   const candidates = files.filter(
     (file) =>
       file.available &&
@@ -23,8 +27,34 @@ export async function getModDownload(
   );
   return {
     urls: forgeMirrorsFor(file.download_url),
-    filename: urlFilename(file.download_url),
+    filename: file.file_name,
   };
+}
+
+/** TODO: Pending https://github.com/Mondanzo/mc-curseforge-api/pull/25 */
+function fixFilename(file: ModFile): ModFile {
+  return Object.assign(Object.create(Object.getPrototypeOf(file)), {
+    ...file,
+    file_name: urlFilename(file.download_url),
+  });
+}
+
+function applyCompatibilityOverride(
+  file: ModFile,
+  override?: { filename: string; versions: string[] }
+): ModFile {
+  if (override == null) {
+    return file;
+  }
+
+  if (file.file_name === override.filename) {
+    return Object.assign(Object.create(Object.getPrototypeOf(file)), {
+      ...file,
+      minecraft_versions: [...file.minecraft_versions, ...override.versions],
+    });
+  } else {
+    return file;
+  }
 }
 
 // The metadata server gives a URL from one of two mirrors by random. Add URLs
