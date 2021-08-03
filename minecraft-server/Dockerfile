@@ -58,6 +58,11 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'recipecache-0.2.0-1.17.1.jar' 'https://edge-service.overwolf.wtf/files/3369/522/recipecache-0.2.0-1.17.1.jar' 'https://edge.forgecdn.net/files/3369/522/recipecache-0.2.0-1.17.1.jar'
 
+FROM minecraft-download AS minecraft-mod-servux
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'servux-fabric-1.17.0-0.1.0.jar' 'https://edge-service.overwolf.wtf/files/3345/645/servux-fabric-1.17.0-0.1.0.jar' 'https://edge.forgecdn.net/files/3345/645/servux-fabric-1.17.0-0.1.0.jar'
+
 FROM minecraft-download AS minecraft-mod-inventory_sorting
 USER minecraft
 WORKDIR /minecraft/mods
@@ -91,6 +96,7 @@ COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17.1-0.3
 COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.1-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0-1.17.1.jar' /minecraft/mods/
+COPY --from=minecraft-mod-servux /minecraft/mods/'servux-fabric-1.17.0-0.1.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-xaeros_minimap_fair_play_edition /minecraft/mods/'Xaeros_Minimap_FP21.14.1_Fabric_1.17.1.jar' /minecraft/mods/
 COPY --from=minecraft-mod-xaeros_world_map /minecraft/mods/'XaerosWorldMap_1.16.0_Fabric_1.17.1.jar' /minecraft/mods/
