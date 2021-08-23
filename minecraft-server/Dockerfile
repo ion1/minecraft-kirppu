@@ -31,7 +31,7 @@ RUN \
 FROM minecraft-download AS minecraft-mod-fabric_api
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'fabric-api-0.37.2+1.17.jar' 'https://cdn.modrinth.com/data/P7dR8mSH/versions/0.37.2+1.17/fabric-api-0.37.2+1.17.jar'
+RUN /download-mod 'fabric-api-0.38.2+1.17.jar' 'https://cdn.modrinth.com/data/P7dR8mSH/versions/0.38.2+1.17/fabric-api-0.38.2+1.17.jar'
 
 FROM minecraft-download AS minecraft-mod-lithium
 USER minecraft
@@ -46,7 +46,7 @@ RUN /download-mod 'hydrogen-fabric-mc1.17.1-0.3.jar' 'https://cdn.modrinth.com/d
 FROM minecraft-download AS minecraft-mod-ferrite_core
 USER minecraft
 WORKDIR /minecraft/mods
-RUN /download-mod 'ferritecore-3.0.1-fabric.jar' 'https://edge-service.overwolf.wtf/files/3373/736/ferritecore-3.0.1-fabric.jar' 'https://edge.forgecdn.net/files/3373/736/ferritecore-3.0.1-fabric.jar'
+RUN /download-mod 'ferritecore-3.0.3-fabric.jar' 'https://cdn.modrinth.com/data/uXXizFIs/versions/3.0.3/ferritecore-3.0.3-fabric.jar'
 
 FROM minecraft-download AS minecraft-mod-lazydfu
 USER minecraft
@@ -90,10 +90,10 @@ COPY --from=minecraft-server /minecraft/server/*.jar /minecraft/server/
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-monitor /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
-COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.37.2+1.17.jar' /minecraft/mods/
+COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.38.2+1.17.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17.1-0.7.3.jar' /minecraft/mods/
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17.1-0.3.jar' /minecraft/mods/
-COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.1-fabric.jar' /minecraft/mods/
+COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.3-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0-1.17.1.jar' /minecraft/mods/
 COPY --from=minecraft-mod-servux /minecraft/mods/'servux-fabric-1.17.0-0.1.0.jar' /minecraft/mods/
