@@ -53,6 +53,11 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'lazydfu-0.1.2.jar' 'https://cdn.modrinth.com/data/hvFnDODi/versions/0.1.2/lazydfu-0.1.2.jar'
 
+FROM minecraft-download AS minecraft-mod-smooth_boot
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'smoothboot-fabric-1.16.5-1.6.0.jar' 'https://cdn.modrinth.com/data/FWumhS4T/versions/1.16.5-1.6.0/smoothboot-fabric-1.16.5-1.6.0.jar'
+
 FROM minecraft-download AS minecraft-mod-recipe_cache
 USER minecraft
 WORKDIR /minecraft/mods
@@ -95,6 +100,7 @@ COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17.1-0.7.3
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17.1-0.3.jar' /minecraft/mods/
 COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.0.3-fabric.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lazydfu /minecraft/mods/'lazydfu-0.1.2.jar' /minecraft/mods/
+COPY --from=minecraft-mod-smooth_boot /minecraft/mods/'smoothboot-fabric-1.16.5-1.6.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-recipe_cache /minecraft/mods/'recipecache-0.2.0-1.17.1.jar' /minecraft/mods/
 COPY --from=minecraft-mod-servux /minecraft/mods/'servux-fabric-1.17.0-0.1.0.jar' /minecraft/mods/
 COPY --from=minecraft-mod-inventory_sorting /minecraft/mods/'InventorySorter-1.7.9-1.17.jar' /minecraft/mods/

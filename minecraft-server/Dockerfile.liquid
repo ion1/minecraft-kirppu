@@ -30,12 +30,15 @@ mods:
     # https://modrinth.com/mod/lazydfu
     id: { modrinth: hvFnDODi }
     #id: { curseforge: 433518 }
-  # TODO: Waiting for 1.17.1 compatibility.
-  #smooth_boot:
-  #  # https://www.curseforge.com/minecraft/mc-mods/smooth-boot
-  #  # The version on Modrinth is missing the 1.17 compatibility tag.
-  #  #id: { modrinth: FWumhS4T }
-  #  id: { curseforge: 415758 }
+  smooth_boot:
+    # https://www.curseforge.com/minecraft/mc-mods/smooth-boot
+    id: { modrinth: FWumhS4T }
+    #id: { curseforge: 415758 }
+    # TODO: Not marked as compatible with 1.17.1.
+    compatibility_override:
+      filename: "smoothboot-fabric-1.16.5-1.6.0.jar"
+      versions: ["1.17", "1.17.1"]
+
   recipe_cache:
     # https://www.curseforge.com/minecraft/mc-mods/recipe-cache
     id: { curseforge: 473492 }
