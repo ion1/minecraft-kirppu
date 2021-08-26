@@ -13,7 +13,8 @@ ln -Tfs /minecraft/mods mods
 exec \
   mc-server-runner --stop-duration 1m \
   java \
-  -Xmx1000M -Xms1000M \
+  -XX:+PrintFlagsFinal \
+  -XX:InitialRAMPercentage=65 -XX:MinRAMPercentage=65 -XX:MaxRAMPercentage=65 \
   -Dlog4j.configurationFile=/minecraft/log4j2.xml \
   -jar /minecraft/server/fabric-server-launch.jar \
   nogui
