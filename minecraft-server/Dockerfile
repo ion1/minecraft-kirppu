@@ -33,6 +33,16 @@ USER minecraft
 WORKDIR /minecraft/mods
 RUN /download-mod 'fabric-api-0.41.3+1.17.jar' 'https://cdn.modrinth.com/data/P7dR8mSH/versions/0.41.3+1.17/fabric-api-0.41.3+1.17.jar'
 
+FROM minecraft-download AS minecraft-mod-fabric_language_kotlin
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'fabric-language-kotlin-1.6.5+kotlin.1.5.31.jar' 'https://edge-service.overwolf.wtf/files/3477/154/fabric-language-kotlin-1.6.5+kotlin.1.5.31.jar' 'https://edge.forgecdn.net/files/3477/154/fabric-language-kotlin-1.6.5+kotlin.1.5.31.jar'
+
+FROM minecraft-download AS minecraft-mod-ledger
+USER minecraft
+WORKDIR /minecraft/mods
+RUN /download-mod 'ledger-1.1.1.jar' 'https://edge-service.overwolf.wtf/files/3469/880/ledger-1.1.1.jar' 'https://edge.forgecdn.net/files/3469/880/ledger-1.1.1.jar'
+
 FROM minecraft-download AS minecraft-mod-lithium
 USER minecraft
 WORKDIR /minecraft/mods
@@ -96,6 +106,8 @@ COPY --from=itzg/minecraft-server /usr/local/bin/mc-server-runner /usr/local/bin
 COPY --from=itzg/minecraft-server /usr/local/bin/mc-monitor /usr/local/bin/
 COPY --from=itzg/minecraft-server /usr/local/bin/rcon-cli /usr/local/bin/
 COPY --from=minecraft-mod-fabric_api /minecraft/mods/'fabric-api-0.41.3+1.17.jar' /minecraft/mods/
+COPY --from=minecraft-mod-fabric_language_kotlin /minecraft/mods/'fabric-language-kotlin-1.6.5+kotlin.1.5.31.jar' /minecraft/mods/
+COPY --from=minecraft-mod-ledger /minecraft/mods/'ledger-1.1.1.jar' /minecraft/mods/
 COPY --from=minecraft-mod-lithium /minecraft/mods/'lithium-fabric-mc1.17.1-0.7.4.jar' /minecraft/mods/
 COPY --from=minecraft-mod-hydrogen /minecraft/mods/'hydrogen-fabric-mc1.17.1-0.3.jar' /minecraft/mods/
 COPY --from=minecraft-mod-ferrite_core /minecraft/mods/'ferritecore-3.1.0-fabric.jar' /minecraft/mods/
